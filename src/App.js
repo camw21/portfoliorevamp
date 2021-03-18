@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
+
+import React from 'react';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    const handleFirstTab = (e) => {
+      if(e.key === 'Tab') {
+        document.body.classList.add('user-is-tabbing')
+    
+        window.removeEventListener('keydown', handleFirstTab)
+        window.addEventListener('mousedown', handleMouseDownOnce)
+      }
+    
+    }
+    
+    const handleMouseDownOnce = () => {
+      document.body.classList.remove('user-is-tabbing')
+    
+      window.removeEventListener('mousedown', handleMouseDownOnce)
+      window.addEventListener('keydown', handleFirstTab)
+    }
+    
+    window.addEventListener('keydown', handleFirstTab)
+    
+    const backToTopButton = document.querySelector(".back-to-top");
+    let isBackToTopRendered = false;
+    
+    let alterStyles = (isBackToTopRendered) => {
+      backToTopButton.style.visibility = isBackToTopRendered ? "visible" : "hidden";
+      backToTopButton.style.opacity = isBackToTopRendered ? 1 : 0;
+      backToTopButton.style.transform = isBackToTopRendered
+        ? "scale(1)"
+        : "scale(0)";
+    };
+    
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 700) {
+        isBackToTopRendered = true;
+        alterStyles(isBackToTopRendered);
+      } else {
+        isBackToTopRendered = false;
+        alterStyles(isBackToTopRendered);
+      }
+    });
   );
 }
 
